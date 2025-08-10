@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paradox Protocol</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .game-container {
+            position: relative;
+            border: 2px solid #00ff00;
+            box-shadow: 0 0 20px #00ff0050;
+        }
+        
+        canvas {
+            display: block;
+            background: #1a1a2e;
+        }
+        
+        .hud {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            text-align: center;
+        }
+        
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        
+        .progress-bar {
+            width: 200px;
+            height: 10px;
+            border: 1px solid #00ff00;
+            background: transparent;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #00aa00);
+            transition: width 0.1s ease;
+            box-shadow: 0 0 10px #00ff0050;
+        }
+        
+        .controls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .loop-counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 16px;
+        }
+        
+        .paradox-warning {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 0, 0, 0.1);
+            border: 3px solid #ff0000;
+            pointer-events: none;
+            opacity: 0;
+            animation: paradoxFlash 0.5s infinite alternate;
+        }
+        
+        @keyframes paradoxFlash {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Editor UI */
+        .editor-ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 20;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ff00;
+            padding: 8px;
+            color: #00ff00;
+            font-size: 12px;
+        }
+        .editor-ui button, .editor-ui select, .editor-ui input[type="file"] {
+            background: #0a0a0a;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        
+        <div class="hud">
+            <div class="timer" id="timer">01:00</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        
+        <div class="loop-counter" id="loopCounter">Loop: 1</div>
+        
+        <div class="controls">
+            WASD/Arrow Keys: Move | SPACE: Jump | E: Interact | R: Reset Loop | T: Reset All | N: Next Level (Debug)
+        </div>
+        
+        <div class="paradox-warning hidden" id="paradoxWarning"></div>
+        
+        <!-- Editor UI -->
+        <div class="editor-ui" id="editorUI">
+            <button id="toggleEditorBtn">Edit: OFF</button>
+            <select id="editorTool">
+                <option value="select">Select/Move</option>
+                <option value="platform">Platform</option>
+                <option value="button">Button</option>
+                <option value="door">Door</option>
+                <option value="block">Block</option>
+                <option value="exit">Exit Zone</option>
+                <option value="spawn">Spawn</option>
+                <option value="link">Link Button→Door</option>
+                <option value="eraser">Eraser</option>
+            </select>
+            <button id="newLevelBtn">New</button>
+            <button id="playtestBtn">Playtest</button>
+            <button id="saveLocalBtn">Save</button>
+            <button id="loadLocalBtn">Load</button>
+            <button id="exportBtn">Export</button>
+            <button id="importBtn">Import</button>
+            <input type="file" id="importFile" accept="application/json" class="hidden" />
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/physics.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/ghost.js"></script>
+    <script src="js/interactables.js"></script>
+    <script src="js/level.js"></script>
+    <script src="js/recorder.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

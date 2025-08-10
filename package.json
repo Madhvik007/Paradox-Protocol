@@ -1,0 +1,17 @@
+{
+  "name": "paradox-protocol",
+  "version": "1.0.0",
+  "description": "A 2D puzzle-platformer with time-loop mechanics",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx live-server --port=3000",
+    "dev": "npx live-server --port=3000 --watch=.",
+    "build": "echo 'No build process needed for this project'"
+  },
+  "keywords": ["game", "puzzle", "platformer", "time-loop", "javascript"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
