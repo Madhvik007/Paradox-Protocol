@@ -121,7 +121,7 @@
 </head>
 <body>
     <div class="game-container">
-        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div id="phaserContainer"></div>
         
         <div class="hud">
             <div class="timer" id="timer">01:00</div>
@@ -162,15 +162,12 @@
         </div>
     </div>
 
-    <script src="js/utils.js"></script>
-    <script src="js/physics.js"></script>
-    <script src="js/player.js"></script>
-    <script src="js/ghost.js"></script>
-    <script src="js/interactables.js"></script>
-    <script src="js/level.js"></script>
-    <script src="js/recorder.js"></script>
-    <script src="js/game.js"></script>
-    <script src="js/editor.js"></script>
-    <script src="js/main.js"></script>
+    <!-- Phaser 3 -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+    <!-- Phaser game code -->
+    <script src="js/phaser/ActionRecorder.js"></script>
+    <script src="js/phaser/GameScene.js"></script>
+    <script src="js/phaser/LevelEditorPhaser.js"></script>
+    <script src="js/phaser/phaserMain.js"></script>
 </body>
 </html>
